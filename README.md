@@ -4,7 +4,9 @@ Testing the replication feature of MongoDB. Run a three-node MongoDB instances u
 
 The three node replica set serves as a redundancy.
 
-Writing to the database will fail if only one secondary node remains running. However, reading will still be available.
+Reading from the database and writing to the database should work just fine even if both secondary nodes are down or just one secondary node is down.
+
+However, if only one secondary node is available, only reading from the database will work and writing will fail. By default, reading would also fail, but this is prevented by the `readPreference: 'secondaryPreferred'` configuration when calling `mongoose.connect()` (refer app.js file line 19).
 
 **Requirements**
 -
